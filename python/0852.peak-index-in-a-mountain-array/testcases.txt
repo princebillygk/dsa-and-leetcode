@@ -13,7 +13,6 @@ input:
 output:
 1
 
-
 input:
 [1, 4, 5, 23, 34, 94, 234, 4, 2, 1]
 output:
