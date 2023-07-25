@@ -11,10 +11,7 @@ from leetgo_py import *
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         cc = [c.lower() for c in s if c.isalnum()]
-        if cc == cc[::-1]:
-            return True
-        else:
-            return False
+        return cc == cc[::-1]
 
 
 if __name__ == "__main__":
