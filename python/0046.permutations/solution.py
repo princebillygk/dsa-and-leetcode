@@ -9,29 +9,24 @@ from leetgo_py import *
 
 
 class Solution:
-    @staticmethod
-    def combine(prevCombination: List[List[int]], val: int) -> List[List[int]]:
-        combination = []
-        for c in prevCombination:
-            combination += [c[:i] + [val] + c[i:] for i in range(len(c) + 1)]
-        return combination
+    result = []
 
-    @ staticmethod
-    def permuteHelper(nums: List[int], combination: List[List[int]], idx: int = 1) -> List[List[int]]:
-        if idx == len(nums):
-            return combination
-        combination = Solution.combine(combination, nums[idx])
-        return Solution.permuteHelper(nums, combination, idx + 1)
+    def permute_helper(self, nums: List[int], idx=0):
+        print("Called with nums, idx: ", idx, nums)
+        if idx >= len(nums):
+            self.result.append(nums)
+            print("pussing idx, nums, result", idx, nums, self.result)
+
+        for i in range(idx, len(nums)):
+            nums[i], nums[idx] = nums[idx], nums[i]
+            print("===> i idx nums", i, idx, nums)
+            self.permute_helper(nums[:], idx + 1)
+            nums[i], nums[idx] = nums[idx], nums[i]
 
     def permute(self, nums: List[int]) -> List[List[int]]:
-        if len(nums) == 0:
-            return []
-        elif len(nums) == 1:
-            return [[nums[0]]]
-        else:
-            return Solution.permuteHelper(nums, [[nums[0]]])
-
-        # @lc code=end
+        self.permute_helper(nums)
+        return [[]]
+        return self.result
 
 
 if __name__ == "__main__":
