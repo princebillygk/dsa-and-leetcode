@@ -4,7 +4,7 @@ l = [25, 21, 20, 9, 4, 3, 1]
 def merge(l1, l2, l):
     i = j = 0
     while i + j < len(l):
-        if j >= len(l2) or l1[i] < l2[j]:
+        if j == len(l2) or (i < len(l1) and l1[i] < l2[j]):
             l[i + j] = l1[i]
             i += 1
         else:
