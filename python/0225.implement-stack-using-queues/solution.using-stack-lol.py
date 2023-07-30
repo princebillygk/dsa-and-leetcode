@@ -1,20 +1,18 @@
-
 # Created by princebillygk at 2023/07/22 15:48
 # leetgo: dev
 # https://leetcode.com/problems/implement-stack-using-queues/
-# Runtime 40 ms Beats 85.68%
+# Runtime 41 ms Beats 82.26%
 # Memory 16.5 MB Beats 38.22%
 
 from typing import *
 from leetgo_py import *
-from collections import deque
 
 # @lc code=begin
 
 
 class MyStack:
     def __init__(self):
-        self.ll = deque()
+        self.ll: list[int] = []
 
     def push(self, x: int) -> None:
         self.ll.append(x)
