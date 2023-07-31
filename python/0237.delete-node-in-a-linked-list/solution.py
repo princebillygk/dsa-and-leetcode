@@ -4,6 +4,8 @@
 
 from typing import *
 from leetgo_py import *
+# Runtime 39 ms Beats 99.37%
+# Memory 16.9 MB Beats 7.18%
 
 # @lc code=begin
 
