@@ -1,8 +1,8 @@
 # Created by princebillygk at 2023/08/02 06:31
 # leetgo: dev
 # https://leetcode.com/problems/design-hashmap/
-# Runtime 204 ms Beats 84.21%
-# Memory 20 MB Beats 59.29%
+# Runtime 901 ms Beats 14.58%
+# Memory 43.3 MB Beats 5.38%
 
 from typing import *
 from leetgo_py import *
@@ -11,32 +11,18 @@ from leetgo_py import *
 
 
 class MyHashMap:
-    size = 1000
 
     def __init__(self):
-        self.table: List[List[tuple[int, int]]] = [[]
-                                                   for _ in range(self.size)]
-
-    def calculate_hash(self, idx: int):
-        return idx % self.size
+        self.table: List[int] = [-1 for _ in range(1000001)]
 
     def put(self, key: int, value: int) -> None:
-        self.remove(key)
-        tableIdx = self.calculate_hash(key)
-        self.table[tableIdx].append((key, value))
+        self.table[key] = value
 
     def get(self, key: int) -> int:
-        tableIdx = self.calculate_hash(key)
-        for tableKey, val in self.table[tableIdx]:
-            if tableKey == key:
-                return val
-        return -1
+        return self.table[key]
 
     def remove(self, key: int) -> None:
-        tableIdx = self.calculate_hash(key)
-        for idx, (tableKey, val) in enumerate(self.table[tableIdx]):
-            if tableKey == key:
-                del self.table[tableIdx][idx]
+        self.table[key] = -1
 
         # Your MyHashMap object will be instantiated and called as such:
         # obj = MyHashMap()
@@ -44,9 +30,8 @@ class MyHashMap:
         # param_2 = obj.get(key)
         # obj.remove(key)
 
+
         # @lc code=end
-
-
 if __name__ == "__main__":
     ops: List[str] = deserialize("List[str]", read_line())
     params = split_array(read_line())
@@ -72,3 +57,5 @@ if __name__ == "__main__":
                 key: int = deserialize("int", method_params[0])
                 obj.remove(key)
                 output.append("null")
+
+    print("\noutput:", join_array(output))
