@@ -4,18 +4,60 @@
 # Runtime 204 ms Beats 84.21%
 # Memory 20 MB Beats 59.29%
 
+from collections import deque
 from typing import *
 from leetgo_py import *
 
 # @lc code=begin
+
+T = TypeVar("T")
+
+
+class LinkedListNode(Generic[T]):
+    def __init__(self, val: T, next):
+        self.val = val
+        self.next = next
+
+
+class LinkedList(Generic[T]):
+    def __init__(self):
+        self.head = None
+
+    def add(self, value: T) -> None:
+        newNode = LinkedListNode(value, None)
+        if self.head is None:
+            self.head = newNode
+        else:
+            self.head.next = newNode
+
+    def get(self, fn: Callable[[T], bool]) -> Optional[LinkedListNode[T]]:
+        current = self.head
+        while (current):
+            if fn(current.val):
+                return current
+            current = current.next
+        return None
+
+    def remove(self, fn: Callable[[T], bool]) -> None:
+        if self.head is None:
+            return
+        elif fn(self.head.val):
+            self.head = self.head.next
+        else:
+            prev = self.head
+            current = self.head.next
+            while (current):
+                if fn(current.val):
+                    prev.next = current.next
+                current = current.next
 
 
 class MyHashMap:
     size = 1000
 
     def __init__(self):
-        self.table: List[List[tuple[int, int]]] = [[]
-                                                   for _ in range(self.size)]
+        self.table: List[LinkedList[tuple[int, int]]] = [LinkedList[tuple[int, int]]()
+                                                         for _ in range(self.size)]
 
     def calculate_hash(self, idx: int):
         return idx % self.size
@@ -23,20 +65,16 @@ class MyHashMap:
     def put(self, key: int, value: int) -> None:
         self.remove(key)
         tableIdx = self.calculate_hash(key)
-        self.table[tableIdx].append((key, value))
+        self.table[tableIdx].add((key, value))
 
     def get(self, key: int) -> int:
         tableIdx = self.calculate_hash(key)
-        for tableKey, val in self.table[tableIdx]:
-            if tableKey == key:
-                return val
-        return -1
+        node = self.table[tableIdx].get(lambda t: t[0] == key)
+        return (-1 if node is None else node.val[1])
 
     def remove(self, key: int) -> None:
         tableIdx = self.calculate_hash(key)
-        for idx, (tableKey, val) in enumerate(self.table[tableIdx]):
-            if tableKey == key:
-                del self.table[tableIdx][idx]
+        self.table[tableIdx].remove(lambda t: t[0] == key)
 
         # Your MyHashMap object will be instantiated and called as such:
         # obj = MyHashMap()
