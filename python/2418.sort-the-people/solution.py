@@ -7,6 +7,8 @@ from leetgo_py import *
 
 # @lc code=begin
 
+# TODO: DO THIS in quick sort and merge sort
+
 
 class Solution:
     def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:

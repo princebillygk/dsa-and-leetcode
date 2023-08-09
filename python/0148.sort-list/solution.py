@@ -7,6 +7,7 @@
 from typing import *
 from leetgo_py import *
 
+# TODO: Do this quick sort
 # @lc code=begin
 
 

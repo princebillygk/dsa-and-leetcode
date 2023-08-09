@@ -9,6 +9,8 @@ from leetgo_py import *
 
 # @lc code=begin
 
+# TODO do this in quick sort
+
 
 class Solution:
     @staticmethod

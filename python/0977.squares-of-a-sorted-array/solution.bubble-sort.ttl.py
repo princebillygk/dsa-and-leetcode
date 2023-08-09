@@ -7,6 +7,8 @@ from leetgo_py import *
 
 # @lc code=begin
 
+# TODO: Do this using quick sort and merge sort
+
 
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
