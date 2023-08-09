@@ -24,11 +24,7 @@ class LinkedList(Generic[T]):
         self.head = None
 
     def add(self, value: T) -> None:
-        newNode = LinkedListNode(value, None)
-        if self.head is None:
-            self.head = newNode
-        else:
-            self.head.next = newNode
+        self.head = LinkedListNode(value, self.head)
 
     def get(self, fn: Callable[[T], bool]) -> Optional[LinkedListNode[T]]:
         current = self.head
@@ -39,9 +35,10 @@ class LinkedList(Generic[T]):
         return None
 
     def remove(self, fn: Callable[[T], bool]) -> None:
-        if self.head is None:
+        if (self.head is None):
             return
-        elif fn(self.head.val):
+
+        if fn(self.head.val):
             self.head = self.head.next
         else:
             prev = self.head
@@ -49,6 +46,7 @@ class LinkedList(Generic[T]):
             while (current):
                 if fn(current.val):
                     prev.next = current.next
+                prev = current
                 current = current.next
 
 
@@ -75,14 +73,6 @@ class MyHashMap:
     def remove(self, key: int) -> None:
         tableIdx = self.calculate_hash(key)
         self.table[tableIdx].remove(lambda t: t[0] == key)
-
-        # Your MyHashMap object will be instantiated and called as such:
-        # obj = MyHashMap()
-        # obj.put(key,value)
-        # param_2 = obj.get(key)
-        # obj.remove(key)
-
-        # @lc code=end
 
 
 if __name__ == "__main__":
