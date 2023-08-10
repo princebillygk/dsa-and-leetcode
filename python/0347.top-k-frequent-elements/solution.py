@@ -1,12 +1,14 @@
 # Created by princebillygk at 2023/08/09 08:40
 # leetgo: dev
 # https://leetcode.com/problems/top-k-frequent-elements/
+# Runtime 138 ms Beats 11.32%
+# Memory 21.5 MB Beats 32.53%
+# TODO do this in merge sort and priority queue/heap solution
 
 from typing import *
 from leetgo_py import *
 
 # @lc code=begin
-# TODO do this in merge sort and priority queue/heap solution
 
 T = TypeVar("T")
 
