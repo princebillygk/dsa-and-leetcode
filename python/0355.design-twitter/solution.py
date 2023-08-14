@@ -1,6 +1,7 @@
 # Created by princebillygk at 2023/08/10 06:18
 # leetgo: dev
 # https://leetcode.com/problems/design-twitter/
+# TODO: Solve this using max heap
 
 from typing import *
 from leetgo_py import *
@@ -9,9 +10,15 @@ from leetgo_py import *
 
 
 class Tweet:
-    def __init__(self, userId, tweetId):
+    def __init__(self, userId: int, tweetId: int):
         self.userId = userId
         self.tweetId = tweetId
+
+    # def __str__(self):
+    #     return f'User {self.userId} posted tweet {self.tweetId}'
+
+    # def __repr__(self):
+    #     return f'User {self.userId} posted tweet {self.tweetId}'
 
 
 class Twitter:
@@ -26,14 +33,20 @@ class Twitter:
         self.tweets.append(Tweet(userId, tweetId))
 
     def getNewsFeed(self, userId: int) -> List[int]:
-        tweets: list[int] = []
-        followees = self.follows[userId]
+        # print(self.tweets, self.follows, userId, sep="|")
 
-        for i in range(len(self.tweets) - 1, 0, -1):
+        tweets: list[int] = []
+        followees = self.follows.get(userId) or set([])
+
+        counter = 0
+        for i in range(len(self.tweets) - 1, -1, -1):
+            if counter > 9:
+                break
             tweet = self.tweets[i]
             if tweet.userId in followees or tweet.userId == userId:
-                tweets.append(tweetId)
-
+                tweets.append(tweet.tweetId)
+                counter += 1
+        # print("Result:", tweets)
         return tweets
 
     def follow(self, followerId: int, followeeId: int) -> None:
