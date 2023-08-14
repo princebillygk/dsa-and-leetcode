@@ -9,8 +9,14 @@ from leetgo_py import *
 
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
+        done = 0
         while k:
-            k- = 1
+            lastElement = nums[-1]
+            for i in range(len(nums) - 2, -1, -1):
+                print(i)
+                nums[i + 1] = nums[i]
+            nums[0] = lastElement
+            done += 1
         
         
 
