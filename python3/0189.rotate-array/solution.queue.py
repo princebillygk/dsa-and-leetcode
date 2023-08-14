@@ -21,14 +21,6 @@ class Solution:
             else: 
                 nums[swapIdx] = q.popleft()
 
-        # # Clearing queue
-        # i = 0
-        # while len(q) > 0:
-        #     nums[i] = q.popleft()
-        #     i+=0
-
-                
-        
         
 
 # @lc code=end
