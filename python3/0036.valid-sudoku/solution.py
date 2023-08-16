@@ -1,16 +1,16 @@
 # Created by Bob at 2023/08/16 15:03
 # leetgo: dev
 # https://leetcode.com/problems/valid-sudoku/
+# TODO: Keep it in revision
 
 from typing import *
 from leetgo_py import *
 
 # @lc code=begin
 
+
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-
-        
         for row in range(9):
             rowSet = set()
             for col in range(9):
