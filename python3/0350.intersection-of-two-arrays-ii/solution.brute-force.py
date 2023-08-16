@@ -11,11 +11,14 @@ from leetgo_py import *
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
         intersection = []
-        nums1Map = Counter(nums1)
-        for num in nums2:
-            if nums1Map[num] > 0:
-                nums1Map[num] -= 1
-                intersection.append(num)
+        for num in nums1:
+            try:
+                idx = nums2.index(num)
+            except ValueError:
+                continue
+            del nums2[idx]
+            intersection.append(num)
+
         return intersection
 
         # @lc code=end
