@@ -1,6 +1,8 @@
 # Created by princebillygk at 2023/08/16 05:51
 # leetgo: dev
 # https://leetcode.com/problems/single-number/
+# Time complexity O(n); space complexity O(1)
+
 
 from typing import *
 from leetgo_py import *
