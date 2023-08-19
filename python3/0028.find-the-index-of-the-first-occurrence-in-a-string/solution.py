@@ -10,17 +10,32 @@ from leetgo_py import *
 
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        haystack_idx = needle_idx = 0
-        haystack_len, needle_len = len(haystack), len(needle)
+        prevLPS, i = 0, 1
+        lps = [0] * len(needle)
 
-        while haystack_idx < haystack_len:
-            if haystack[haystack_idx] == needle[needle_idx]:
-                if needle_idx == needle_len - 1:
-                    return haystack_idx - needle_idx
-                haystack_idx += 1
-                needle_idx += 1
+        while i < len(needle):
+            if needle[i] == needle[prevLPS]:
+                lps[i] = prevLPS + 1
+                i += 1
+                prevLPS += 1
+            elif prevLPS > 0:
+                prevLPS = lps[prevLPS - 1]
             else:
-                haystack_idx, needle_idx = haystack_idx - needle_idx + 1, 0
+                i += 1
+
+        h, n = 0, 0
+
+        while h < len(haystack):
+            if needle[n] == haystack[h]:
+                n += 1
+                h += 1
+                if n == len(needle):
+                    return h - n
+            elif n > 0:
+                n = lps[n - 1]
+            else:
+                h += 1
+
         return -1
 
 

@@ -9,3 +9,11 @@ input:
 "leeto"
 output:
 -1
+
+input:
+"aaacaaacaaacxaaacaaacaaacaaacaaacaaacb"
+"aaacaaacaaacb"
+output: 
+25
+
+
