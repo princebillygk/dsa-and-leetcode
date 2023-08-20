@@ -13,17 +13,20 @@ from leetgo_py import *
 #         self.val = x
 #         self.next = None
 
+# TODO: Learn two pointer approach
+flag = int(10e5+1)
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        slow = fast = head
-        while fast and fast.next:
-            slow = cast(ListNode, slow).next
-            fast = fast.next.next
-            if slow == fast:
-                return True
-        return False
-
+        current = head
+        while current:
+            if current.val == flag:
+                return False
+            current.val = flag
+            current = current.next
+        print(current)
+        return True
+        
 
 # @lc code=end
 
