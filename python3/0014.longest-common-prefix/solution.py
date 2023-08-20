@@ -18,7 +18,7 @@ class Solution:
             currentStrLen = len(currentStr)
 
             k = 0
-            while k < currentStrLen and k < prefixLen :
+            while k < currentStrLen and k < prefixLen:
                 if prefix[k] != currentStr[k]:
                     prefix = prefix[:k]
                     prefixLen = k
