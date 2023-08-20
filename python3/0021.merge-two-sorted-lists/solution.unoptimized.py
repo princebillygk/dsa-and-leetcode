@@ -14,27 +14,22 @@ from leetgo_py import *
 #         self.next = next
 class Solution:
     def mergeTwoLists(self, l1:ListNode, l2: ListNode) -> Optional[ListNode]:
-        head: Optional[ListNode] = None
+        prevHeadNode = ListNode()
 
-        if l1 is not None and (l2 is None or l1.val <= l2.val):
-            head = ListNode(l1.val)
-            l1 = l1.next
-        elif l2 is not None:
-            head = ListNode(l2.val)
-            l2 = l2.next
-
-        currentNode = head
-        while l1 or l2:
-            if l1 is not None and (l2 is None or l1.val <= l2.val):
+        currentNode = prevHeadNode
+        while l1 and l2:
+            if l1.val <= l2.val:
                 currentNode.next = ListNode(l1.val)
-                currentNode = currentNode.next
                 l1 = l1.next
             else:
                 currentNode.next = ListNode(l2.val)
-                currentNode = currentNode.next
                 l2 = l2.next
+
+            currentNode = currentNode.next
+
+        currentNode.next = l1 if l1 else l2
             
-        return head
+        return prevHeadNode.next
 
 
         
