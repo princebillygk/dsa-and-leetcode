@@ -4,6 +4,7 @@
 
 from typing import *
 from leetgo_py import *
+from collections import deque
 
 # @lc code=begin
 
@@ -15,27 +16,25 @@ from leetgo_py import *
 #         self.right = right
 
 
-# BFS SOLUTION
+# BFS SOLUTION With queue 
 class Solution:
     def maxDepth(self, root: Optional[TreeNode], depth=0) -> int:
         if root is None:
             return 0
 
         depth = 1
-        stack: List[Optional[TreeNode]] = [root]
+        queue: deque[TreeNode] = deque([root])
         count = 1
 
         while count > 0:
-            currentNode = stack.pop()
-
             for n in range(count):
-                if currentNode:
-                    if currentNode.left:
-                        stack.append(currentNode.left)
-                    if currentNode.right:
-                        stack.append(currentNode.right)
+                currentNode = queue.popleft()
+                if currentNode.left:
+                    queue.append(currentNode.left)
+                if currentNode.right:
+                    queue.append(currentNode.right)
 
-            count = len(stack)
+            count = len(queue)
             if count > 0:
                 depth += 1
 
