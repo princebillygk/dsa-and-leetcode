@@ -4,7 +4,6 @@
 
 from typing import *
 from leetgo_py import *
-from collections import deque
 
 # @lc code=begin
 
@@ -18,24 +17,15 @@ class Node:
 
 
 class Solution:
-    def maxDepth(self, root: 'Node') -> int:
+    def maxDepth(self, root: 'Node', depth=0) -> int:
         if root is None:
-            return 0
+            return depth
 
-        depth = 1
-        queue = deque([root])
-        counter = 1
-
-        while counter > 0:
-            for _ in range(counter):
-                currentNode = queue.popleft()
-                queue.extend(currentNode.children)
-
-            counter = len(queue)
-            if counter > 0:
-                depth += 1
-
-        return depth
+        depth += 1
+        if len(root.children) > 0:
+            return max(map(lambda node:  self.maxDepth(node, depth), root.children))
+        else:
+            return depth
 
 
 # @lc code=end
