@@ -17,17 +17,21 @@ from leetgo_py import *
 
 class Solution:
     def isValidBST(self, root: Optional[TreeNode], nlt: Optional[int] = None, ngt=None) -> bool:
+        """ 
+         ngt -- not greather than (default None)
+         nlt -- not less than (default None)
+        """
         if root is None:
             return True
 
         if root.left is not None:
             if root.left.val >= root.val or (nlt is not None and root.left.val <= nlt):
-                print(root.left.val, root.val, nlt, "left")
+                # print(root.left.val, root.val, nlt, "left")
                 return False
 
         if root.right is not None:
             if root.right.val <= root.val or (ngt is not None and root.right.val >= ngt):
-                print(root.right.val, root.val, ngt, "right")
+                # print(root.right.val, root.val, ngt, "right")
                 return False
 
         return self.isValidBST(root.left, nlt, root.val) and self.isValidBST(root.right, root.val, ngt)
