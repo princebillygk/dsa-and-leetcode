@@ -16,38 +16,38 @@ from collections import deque
 #         self.right = right
 
 
+# In order traversal is important too
 class Solution:
-    def findMode(self, root: Optional[TreeNode]) -> List[int]:
+    maxFq = 0
+    modes = []
+    lastVal = None
+    lastFq = 0
+
+    def findMode(
+            self,
+            root: Optional[TreeNode],
+    ) -> List[int]:
         if root is None:
-            return []
+            return self.modes
 
-        freq = {}
+        self.findMode(root.left)
 
-        queue = deque([root])
+        if root.val == self.lastVal:
+            self.lastFq += 1
+        else:
+            self.lastFq = 1
 
-        while len(queue) > 0:
-            current_node = queue.popleft()
-            if freq.get(current_node.val):
-                freq[current_node.val] += 1
-            else:
-                freq[current_node.val] = 1
+        if self.lastFq > self.maxFq:
+            self.modes = [root.val]
+            self.maxFq = self.lastFq
+        elif self.lastFq == self.maxFq:
+            self.modes.append(root.val)
 
-            if current_node.left is not None:
-                queue.append(current_node.left)
-            if current_node.right is not None:
-                queue.append(current_node.right)
+        self.lastVal = root.val
+        self.lastFq = self.lastFq
 
-        modes = []
-        maxFreq = 0
-
-        for k, f in freq.items():
-            if f == maxFreq:
-                modes .append(k)
-            if f > maxFreq:
-                modes = [k]
-                maxFreq = f
-
-        return modes
+        self.findMode(root.right)
+        return self.modes
 
 
 # @lc code=end
