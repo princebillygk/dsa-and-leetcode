@@ -21,21 +21,33 @@ class Solution:
         if root is None:
             return []
 
-        frequent = set()
+        freq = {}
 
         queue = deque([root])
-        while len(queue) > 0:
-            currentNode = queue.popleft()
-            if currentNode.left is not None:
-                queue.append(currentNode.left)
-                if currentNode.left.val == currentNode.val:
-                    frequent.add(currentNode.val)
-            elif currentNode.right is not None:
-                queue.append(currentNode.right)
-                if currentNode.right.val == currentNode.val:
-                    frequent.add(currentNode.val)
 
-        return list(frequent)
+        while len(queue) > 0:
+            current_node = queue.popleft()
+            if freq.get(current_node.val):
+                freq[current_node.val] += 1
+            else:
+                freq[current_node.val] = 1
+
+            if current_node.left is not None:
+                queue.append(current_node.left)
+            if current_node.right is not None:
+                queue.append(current_node.right)
+
+        modes = []
+        maxFreq = 0
+
+        for k, f in freq.items():
+            if f == maxFreq:
+                modes .append(k)
+            if f > maxFreq:
+                modes = [k]
+                maxFreq = f
+
+        return modes
 
 
 # @lc code=end
