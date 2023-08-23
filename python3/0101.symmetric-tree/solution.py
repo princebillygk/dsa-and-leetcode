@@ -21,27 +21,34 @@ class Solution:
         if root is None:
             return True
 
-        leftQueue = [root.left]
-        rightQueue = [root.right]
+        nodeA, nodeB = root.left, root.right
+
+        if nodeA is None and nodeB is None:
+            return True
+        elif nodeA is None or nodeB is None:
+            return False
+
+        leftQueue, rightQueue = [nodeA], [nodeB]
 
         while len(leftQueue) > 0 and len(rightQueue) > 0:
-            nodeA = leftQueue.pop()
-            nodeB = rightQueue.pop()
+            nodeA, nodeB = leftQueue.pop(), rightQueue.pop()
 
-            if nodeA is None and nodeB is None:
-                return True
-            elif nodeA is None or nodeB is None:
-                return False
-            elif nodeA.val != nodeB.val:
+            if nodeA.val != nodeB.val:
                 return False
 
-            leftQueue.extend([nodeA.left, nodeA.right])
-            rightQueue.extend([nodeB.right, nodeA.left])
+            if nodeA.left is not None and nodeB.right is not None:
+                leftQueue.append(nodeA.left)
+                rightQueue.append(nodeB.right)
+            elif not (nodeA.left is None and nodeB.right is None):
+                return False
 
-        if len(leftQueue) != len(rightQueue):
-            return False
-        else:
-            return True
+            if nodeA.right is not None and nodeB.left is not None:
+                leftQueue.append(nodeA.right)
+                rightQueue.append(nodeB.left)
+            elif not (nodeA.right is None and nodeB.left is None):
+                return False
+
+        return True
 
         # @lc code=end
 if __name__ == "__main__":
