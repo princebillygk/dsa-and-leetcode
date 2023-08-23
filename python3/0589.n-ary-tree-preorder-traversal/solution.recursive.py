@@ -4,7 +4,6 @@
 
 from typing import *
 from leetgo_py import *
-from collections import deque
 
 # @lc code=begin
 
@@ -18,21 +17,14 @@ class Node:
 
 
 class Solution:
-    result: List[int] = []
-
     def preorder(self, root: 'Node') -> List[int]:
-        result = []
         if root is None:
             return []
 
-        stack = [root]
+        result = [root.val]
 
-        while len(stack) > 0:
-            current_node = stack.pop()
-            result.append(current_node.val)
-
-            for child in current_node.children[::-1]:
-                stack.append(child)
+        for child in root.children:
+            result += self.preorder(child)
 
         return result
 
