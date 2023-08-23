@@ -24,7 +24,7 @@ class Solution:
             return traversal
 
         queue = deque([root])
-        is_dir_right = True
+        is_dir_right = False
         count = 1
 
         while count > 0:
@@ -34,14 +34,15 @@ class Solution:
 
             for _ in range(count):
                 if is_dir_right:
-                    currentNode = oldQueue.popleft()
+                    currentNode = oldQueue.pop()
                     levels.append(currentNode.val)
+
                     if currentNode.right is not None:
                         queue.appendleft(currentNode.right)
                     if currentNode.left is not None:
                         queue.appendleft(currentNode.left)
                 else:
-                    currentNode = oldQueue.pop()
+                    currentNode = oldQueue.popleft()
                     levels.append(currentNode.val)
                     if currentNode.left is not None:
                         queue.append(currentNode.left)
