@@ -4,6 +4,7 @@
 
 from typing import *
 from leetgo_py import *
+from collections import deque
 
 # @lc code=begin
 
@@ -19,21 +20,36 @@ class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if root is None:
             return True
-        return self._isSymmetric(root.left, root.right)
 
-    def _isSymmetric(self, nodeA: Optional[TreeNode], nodeB: Optional[TreeNode]) -> bool:
+        nodeA, nodeB = root.left, root.right
+
         if nodeA is None and nodeB is None:
             return True
         elif nodeA is None or nodeB is None:
             return False
-        elif nodeA.val != nodeB.val:
-            return False
 
-        return self._isSymmetric(nodeA.left, nodeB.right) and self._isSymmetric(nodeA.right, nodeB.left)
+        stk = [nodeA, nodeB]
+
+        while len(stk) > 0:
+            nodeA, nodeB = stk.pop(), stk.pop()
+
+            if nodeA.val != nodeB.val:
+                return False
+
+            if nodeA.left is not None and nodeB.right is not None:
+                stk.extend([nodeA.left, nodeB.right])
+            elif not (nodeA.left is None and nodeB.right is None):
+                return False
+
+            if nodeA.right is not None and nodeB.left is not None:
+                stk.extend([nodeA.right, nodeB.left])
+            elif not (nodeA.right is None and nodeB.left is None):
+                return False
+
+        return True
+
 
         # @lc code=end
-
-
 if __name__ == "__main__":
     root: TreeNode = deserialize("TreeNode", read_line())
     ans = Solution().isSymmetric(root)
