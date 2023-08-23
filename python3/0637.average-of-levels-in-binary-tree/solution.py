@@ -4,7 +4,7 @@
 
 from typing import *
 from leetgo_py import *
-from collection import deque
+from collections import deque
 
 # @lc code=begin
 
