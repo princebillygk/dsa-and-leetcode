@@ -1,51 +1,70 @@
+from typing import *
+
+
 class Node(object):
+    left: Optional['Node']
+    right: Optional['Node']
+
     def __init__(self, value):
         self.value = value
         self.left = None
         self.right = None
 
 
-class BinaryTree(object):
+class BST(object):
     def __init__(self, root):
         self.root = Node(root)
 
-    def search(self, find_val):
-        return self.preorder_search(self.root, find_val)
-
-    def print_tree(self):
-        return "-".join(map(lambda x: str(x), self.preorder_print(self.root)))
-
-    def preorder_search(self, start, find_val):
-        if start is None:
-            return False
-        elif start.value == find_val:
-            return True
-
-        return self.preorder_search(start.left, find_val) or self.preorder_search(start.right, find_val)
-
-    def preorder_print(self, start, traversal=[]):
-        if start is None:
+    def insert(self, new_val):
+        if self.root is None:
+            self.root = Node(new_val)
             return
 
-        traversal.append(start.value)
-        self.preorder_print(start.left, traversal)
-        self.preorder_print(start.right, traversal)
-        return traversal
+        current_node = self.root
+
+        while True:
+            if current_node.value > new_val:
+                if current_node.left is None:
+                    current_node.left = Node(new_val)
+                    return
+                else:
+                    current_node = current_node.left
+
+            else:
+                if current_node.right is None:
+                    current_node.right = Node(new_val)
+                    return
+                else:
+                    current_node = current_node.right
+
+    def search(self, find_val):
+        if self.root is None:
+            return False
+
+        current_node = self.root
+
+        while current_node:
+            if current_node.value == find_val:
+                return True
+            elif current_node.value > find_val:
+                current_node = current_node.left
+            else:
+                current_node = current_node.right
+
+        return False
 
 
 # Set up tree
-tree = BinaryTree(1)
-tree.root.left = Node(2)
-tree.root.right = Node(3)
-tree.root.left.left = Node(4)
-tree.root.left.right = Node(5)
+tree = BST(4)
 
-# Test search
+# Insert elements
+tree.insert(2)
+tree.insert(1)
+tree.insert(3)
+tree.insert(5)
+
+# Check search
 # Should be True
-print(tree.search(4))
+print tree.search(4)
 # Should be False
-print(tree.search(6))
-
-# Test print_tree
-# Should be 1-2-4-5-3
-print(tree.print_tree())
+print tree.search(6)
