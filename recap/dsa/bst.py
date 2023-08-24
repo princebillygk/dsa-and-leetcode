@@ -65,6 +65,6 @@ tree.insert(5)
 
 # Check search
 # Should be True
-print tree.search(4)
+print(tree.search(4))
 # Should be False
-print tree.search(6)
+print(tree.search(6))
