@@ -15,6 +15,29 @@ from leetgo_py import *
 #         self.right = right
 
 
+def setIfChildOf(cur: TreeNode, child: TreeNode, isLeft, parent: Optional[TreeNode] = None) -> bool:
+    if cur is None:
+        return False
+
+    if cur.val == child.val:
+        if parent is None:
+            return False
+
+        if isLeft:
+            node = parent.left
+        else:
+            node = parent.right
+        # print(parent.val ,node, child)
+        if node.left is None:
+            node.left = child.left
+        if node.right is None:
+            node.right = child.right
+        # print(node)
+        return True
+
+    return setIfChildOf(cur.left, child,  True, cur) or setIfChildOf(cur.right, child, False, cur)
+
+
 class Solution:
     def createBinaryTree(self, descriptions: List[List[int]]) -> Optional[TreeNode]:
         nodes: dict[int, TreeNode] = {}
@@ -41,33 +64,11 @@ class Solution:
                 for v in nodes:
                     if v == childV:
                         continue
-                    if self.setIfChildOf(nodes[v], child, True):
+                    if setIfChildOf(nodes[v], child, True):
                         del nodes[childV]
                         break
 
         return list(nodes.values())[0]
-
-    def setIfChildOf(self, cur: TreeNode, child: TreeNode, isLeft, parent: Optional[TreeNode] = None) -> bool:
-        if cur is None:
-            return False
-
-        if cur.val == child.val:
-            if parent is None:
-                return False
-
-            if isLeft:
-                node = parent.left
-            else:
-                node = parent.right
-            # print(parent.val ,node, child)
-            if node.left is None:
-                node.left = child.left
-            if node.right is None:
-                node.right = child.right
-            # print(node)
-            return True
-
-        return self.setIfChildOf(cur.left, child,  True, cur) or self.setIfChildOf(cur.right, child, False, cur)
 
 
 # @lc code=end
