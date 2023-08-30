@@ -9,8 +9,6 @@ from leetgo_py import *
 
 
 class Solution:
-    results: List[int] = [0 for i in range(46)]
-
     def climbStairs(self, n: int) -> int:
         f1 = 0
         f2 = 1
