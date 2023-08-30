@@ -12,17 +12,17 @@ class Solution:
     results: List[int] = [0 for i in range(46)]
 
     def climbStairs(self, n: int) -> int:
-        f1 = 0
-        f2 = 1
-
-        i = 1
-        while i <= n:
-            f3 = f1 + f2
-            f1 = f2
-            f2 = f3
-            i += 1
-
-        return f2
+        result = self.results[n]
+        if result != 0:
+            return result
+        elif n == 0 or n == 1:
+            return 1
+        else:
+            c1 = self.climbStairs(n-1)
+            c2 = self.climbStairs(n - 2)
+            self.results[n - 1] = c1
+            self.results[n - 2] = c2
+            return c1 + c2
 
 
 # @lc code=end
