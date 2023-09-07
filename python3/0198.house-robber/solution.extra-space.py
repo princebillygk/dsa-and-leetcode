@@ -10,24 +10,23 @@ from leetgo_py import *
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        p0 = 0
-        p1 = 0
-        p2 = 0
-
+        profit = []
         maxProfit = 0
 
-        for num in nums:
-            if p0 > p1:
-                p = num + p0
+        for i in range(len(nums)):
+            if i < 2:
+                profit.append(nums[i])
+            elif i < 3:
+                profit.append(nums[i] + profit[i - 2])
+            elif profit[i - 2] > profit[i - 3]:
+                profit.append(nums[i] + profit[i - 2])
             else:
-                p = num + p1
+                profit.append(nums[i] + profit[i - 3])
 
-            if p > maxProfit:
-                maxProfit = p
+            if profit[i] > maxProfit:
+                maxProfit = profit[i]
 
-            p0 = p1
-            p1 = p2
-            p2 = p
+        print(profit)
 
         return maxProfit
 
