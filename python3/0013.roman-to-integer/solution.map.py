@@ -12,24 +12,31 @@ class Solution:
     def romanToInt(self, s: str) -> int:
         romanMap: dict[str, int] = {
             "M": 1000,
+            "CM": 900,
             "D": 500,
+            "CD": 400,
             "C": 100,
+            "XC": 90,
             "L": 50,
+            "XL": 40,
             "X": 10,
+            "IX": 9,
             "V": 5,
+            "IV": 4,
             "I": 1
         }
+        i = 0
 
         result = 0
-        lastIdx = len(s) - 1
-        for i in range(lastIdx):
-            val = romanMap[s[i]]
-            if val < romanMap[s[i+1]]:
-                result -= val
-            else:
+        while i < len(s):
+            val = romanMap.get(s[i: i + 2])
+            if val is not None:
                 result += val
-
-        return result + romanMap[s[lastIdx]]
+                i += 2
+            else:
+                result += romanMap[s[i]]
+                i += 1
+        return result
 
 
 # @lc code=end
