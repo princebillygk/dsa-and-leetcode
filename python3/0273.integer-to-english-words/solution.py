@@ -10,114 +10,48 @@ from leetgo_py import *
 
 class Solution:
     def numberToWords(self, num: int) -> str:
-        zeroToNinetyNine: list[str] = [
-            "শূন্য",
-            "এক",
-            "দুই",
-            "তিন",
-            "চার",
-            "পাঁচ",
-            "ছয়",
-            "সাত",
-            "আট",
-            "নয়",
-            "দশ",
-            "এগারো,"
-            "বারো",
-            "তেরো",
-            "চৌদ্দ",
-            "পনেরো,"
-            "ষোল",
-            "সতেরো,"
-            "আঠারো,"
-            "ঊনিশ",
-            "বিশ",
-            "একুশ",
-            "বাইশ",
-            "তেইশ",
-            "চব্বিশ,"
-            "পঁচিশ",
-            "ছাব্বি,শ"
-            "সাতাশ,"
-            "আঠাশ",
-            "ঊনত্রি,শ"
-            "ত্রিশ",
-            "একত্রি,শ"
-            "বত্রিশ,"
-            "তেত্রি,শ"
-            "চৌত্রি,শ"
-            "পঁয়ত্রি,শ"
-            "ছত্রিশ,"
-            "সাইত্র,িশ"
-            "আটত্রি,শ"
-            "ঊনচল্ল,িশ"
-            "চল্লিশ,"
-            "একচল্ল,িশ"
-            "বিয়াল্,লিশ"
-            "তেতাল্,লিশ"
-            "চুয়াল্ল,িশ"
-            "পঁয়তাল্,লিশ"
-            "ছেচল্ল,িশ"
-            "সাতচল্,লিশ"
-            "আটচল্ল,িশ"
-            "ঊনপঞ্চ,াশ"
-            "পঞ্চাশ,"
-            "একান্ন,"
-            "বাহান্,ন"
-            "তিপ্পা,ন্ন"
-            "চুয়ান্ন,"
-            "পঞ্চান্,ন"
-            "ছাপ্পা,ন্ন"
-            "সাতান্,ন"
-            "আটান্ন,"
-            "ঊনষাট,"
-            "ষাট",
-            "একষট্ট,ি"
-            "বাষট্ট,ি"
-            "তেষট্ট,ি"
-            "চৌষট্ট,ি"
-            "পঁয়ষট্ট,ি"
-            "ছেষট্ট,ি"
-            "সাতষট্,টি"
-            "আটষট্ট,ি"
-            "ঊনসত্ত,র"
-            "সত্তর",
-            "একাত্ত,র"
-            "বাহাত্,তর"
-            "তিয়াত্,তর"
-            "চুয়াত্ত,র"
-            "পঁচাত্ত,র"
-            "ছিয়াত্,তর"
-            "সাতাত্,তর"
-            "আটাত্ত,র"
-            "ঊনআশি,"
-            "আশি",
-            "একাশি,"
-            "বিরাশ,ি"
-            "তিরাশ,ি"
-            "চুরাশি,"
-            "পঁচাশি,"
-            "ছিয়াশ,ি"
-            "সাতাশ,ি"
-            "অষ্টআশ,ি"
-            "ঊননব্ব,ই"
-            "নব্বই",
-            "একানব্,বই"
-            "বিরান,ব্বই"
-            "তিরান,ব্বই"
-            "চুরানব্,বই"
-            "পঁচানব্,বই"
-            "ছিয়ান,ব্বই"
-            "সাতান,ব্বই"
-            "আটানব্,বই"
-            "নিরান,ব্বই"
+        zeroToNine = [
+            "Zero",
+            "One",
+            "Two",
+            "Three",
+            "Four",
+            "Five",
+            "Six",
+            "Seven",
+            "Eight",
+            "Nine",
         ]
 
-        cores = num // 10000000
-        num %= 10000000
+        tenToNineteen = [
+            "Ten",
+            "Eleven",
+            "Twelve",
+            "Thirteen",
+            "Fourteen",
+            "Fifteen",
+            "Sixteen",
+            "Seventeen",
+            "Eighteen",
+            "Nineteen",
+        ]
 
-        lakhs = num // 100000
-        num %= 100000
+        twentyToNinety = [
+            "Twenty",
+            "Thirty",
+            "Forty",
+            "Fifty",
+            "Sixty",
+            "Seventy",
+            "Eighty",
+            "Ninety",
+        ]
+
+        billions = num // 1000000000
+        num %= 1000000000
+
+        millions = num // 1000000
+        num %= 1000000
 
         thousands = num // 1000
         num %= 1000
@@ -125,26 +59,33 @@ class Solution:
         hundreds = num // 100
         num %= 100
 
+        tens = num // 10
+        num %= 10
+
         words: list[str] = []
 
-        if cores > 0:
-            words.append(self.numberToWords(cores) + "কোটি")
+        if billions > 0:
+            words.append(self.numberToWords(billions) + " Billion")
 
-        if lakhs > 0:
-            words.append(self.numberToWords(lakhs) + "লক্ষ")
+        if millions > 0:
+            words.append(self.numberToWords(millions) + " Million")
 
         if thousands > 0:
-            words.append(self.numberToWords(thousands) + "হাজার")
+            words.append(self.numberToWords(thousands) + " Thousand")
 
         if hundreds > 0:
-            words.append(self.numberToWords(hundreds) + " শত")
+            words.append(self.numberToWords(hundreds) + " Hundred")
 
-        if num > 0:
-            print(num)
-            print(len(zeroToNinetyNine))
-            words.append(zeroToNinetyNine[num])
+        if tens > 1:
+            words.append(twentyToNinety[tens - 2])
+            if num > 0:
+                words.append(zeroToNine[num])
+        elif tens == 1:
+            words.append(tenToNineteen[num])
+        elif num > 0:
+            words.append(zeroToNine[num])
         elif len(words) == 0:
-            words.append(zeroToNinetyNine[0])
+            words.append(zeroToNine[num])
 
         return " ".join(words)
 

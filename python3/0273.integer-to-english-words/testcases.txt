@@ -20,5 +20,10 @@ output:
 
 input: 
 12
-Output: 
+output:
 "Twelve"
+
+input:
+2147483647
+output:
+"Two Billion One Hundred Forty Seven Million Four Hundred Eighty Three Thousand Six Hundred Forty Seven"
