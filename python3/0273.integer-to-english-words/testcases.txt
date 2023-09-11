@@ -12,3 +12,13 @@ input:
 1234567
 output:
 "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+
+input: 
+0
+output:
+"Zero"
+
+input: 
+12
+Output: 
+"Twelve"
