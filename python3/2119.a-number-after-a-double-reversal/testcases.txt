@@ -1,0 +1,14 @@
+input:
+526
+output:
+true
+
+input:
+1800
+output:
+false
+
+input:
+0
+output:
+true
