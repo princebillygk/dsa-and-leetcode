@@ -11,12 +11,11 @@ from leetgo_py import *
 class Solution:
     def reverseBits(self, n: int) -> int:
         result = 0
-        bit = 32
+        bit = 0b11111111111111111111111111111111
         while bit:
-            result <<= 1
-            result |= n & 1
+            result = (result << 1) | n & 1
             n >>= 1
-            bit -= 1
+            bit >>= 1
         return result
 
 
