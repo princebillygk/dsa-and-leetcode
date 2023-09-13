@@ -14,10 +14,16 @@ class Solution:
         pascal_triangle = [lastArray]
 
         for _ in range(numRows - 1):
-            newArr = [lastArray[0]] + [lastArray[i] + lastArray[i - 1]
-                                       for i in range(1, len(lastArray))] + [lastArray[-1]]
-            pascal_triangle.append(newArr)
+            newArr = []
+
+            lastItem = 0
+            for i in lastArray:
+                newArr.append(lastItem + i)
+                lastItem = i
+
+            newArr.append(lastArray[-1])
             lastArray = newArr
+            pascal_triangle.append(newArr)
 
         return pascal_triangle
 
