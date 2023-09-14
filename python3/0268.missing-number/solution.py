@@ -9,32 +9,13 @@ from leetgo_py import *
 
 
 class Solution:
-    def missingNumber(self, nums: List[Optional[int]]) -> int:
-        l = len(nums)
-        foundL = False
-        for n in nums:
-            if n is None:
-                n = 0
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        s = 0
+        for i in nums:
+            s += i
+        return (n * (n + 1)) // 2 - s
 
-            n = abs(n)
-
-            if l == n:
-                foundL = True
-                continue
-
-            curVal = nums[n]
-            if curVal == 0:
-                nums[n] = None
-            elif curVal is not None:
-                nums[n] = curVal * -1
-
-        if foundL == False:
-            return l
-        else:
-            for i in range(len(nums)):
-                v = nums[i]
-                if v is not None and v >= 0:
-                    return i
 
         # @lc code=end
 if __name__ == "__main__":
