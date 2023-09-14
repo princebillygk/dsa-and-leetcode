@@ -12,14 +12,15 @@ class Solution:
     def missingNumber(self, nums: List[Optional[int]]) -> int:
         l = len(nums)
         foundL = False
-
         for n in nums:
+            if n is None:
+                n = 0
+
+            n = abs(n)
+
             if l == n:
                 foundL = True
                 continue
-
-            if n is None:
-                n = 0
 
             curVal = nums[n]
             if curVal == 0:
@@ -30,8 +31,10 @@ class Solution:
         if foundL == False:
             return l
         else:
-            return filter(lambda x: x > 0, nums)
-
+            for i in range(len(nums)):
+                v = nums[i]
+                if v is not None and v >= 0:
+                    return i
 
         # @lc code=end
 if __name__ == "__main__":
