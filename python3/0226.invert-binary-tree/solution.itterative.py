@@ -4,6 +4,7 @@
 
 from typing import *
 from leetgo_py import *
+from collections import deque
 
 # @lc code=begin
 
@@ -21,9 +22,17 @@ class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if root is None:
             return root
-        root.left, root.right = root.right, root.left
-        self.invertTree(root.left)
-        self.invertTree(root.right)
+
+        queue = deque([root])
+
+        while len(queue) > 0:
+            node = queue.popleft()
+            node.left, node.right = node.right, node.left
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
         return root
 
 
