@@ -4,7 +4,6 @@
 
 from typing import *
 from leetgo_py import *
-from collections import deque
 
 # @lc code=begin
 
@@ -19,13 +18,25 @@ class TreeNode:
 
 
 class Solution:
+    def invertTreeHelper(self, root: TreeNode, inverted_root: TreeNode):
+        if root.left is not None:
+            inverted_root.right = TreeNode(root.left.val)
+            self.invertTreeHelper(root.left, inverted_root.right)
+
+        if root.right is not None:
+            inverted_root.left = TreeNode(root.right.val)
+            self.invertTreeHelper(root.right, inverted_root.left)
+        return None
+
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if root is None:
-            return root
-        root.left, root.right = root.right, root.left
-        self.invertTree(root.left)
-        self.invertTree(root.right)
-        return root
+            return None
+
+        inverted_root = TreeNode(root.val)
+        self.invertTreeHelper(root, inverted_root)
+        return inverted_root
+
+        # @lc code=end
 
 
 if __name__ == "__main__":
