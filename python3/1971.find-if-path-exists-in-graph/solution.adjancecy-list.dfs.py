@@ -23,17 +23,13 @@ class Solution:
             a[v2].append(v1)
 
         q = deque([source])
-        l = 1
-
         while len(q) > 0:
-            for _ in range(l):
-                v = q.pop()
-                if v == destination:
-                    return True
-                if visited.get(v) != True:
-                    visited[v] = True
-                    q.extend(a[v])
-            l = len(q)
+            v = q.pop()
+            if v == destination:
+                return True
+            if visited.get(v) != True:
+                visited[v] = True
+                q.extend(a[v])
 
         return False
 
